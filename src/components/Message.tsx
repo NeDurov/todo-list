@@ -51,17 +51,17 @@ const Message = ({ dataOfMessage }: { dataOfMessage: MessageType }) => {
 	return (
 		<li>
 			<span style={{ userSelect: "none" }}>
-				<b>Сообщение: </b>
-				{dataOfMessage.text} <b>Интервал: </b>
+				<b>Сообщение: </b>"{dataOfMessage.text}". <b> Интервал: </b>
 				{dataOfMessage.interval} сек.
 			</span>
-			<span style={{ verticalAlign: "middle" }}>
+			<span style={{ verticalAlign: "middle", marginLeft: "4px" }}>
 				{isPLay ? (
 					<Pause size={21} color="yellow" onClick={playHandle} />
 				) : (
 					<Play size={21} color="green" onClick={playHandle} />
 				)}
 				<Trash
+					style={{ marginLeft: "4px" }}
 					className="trash"
 					onClick={removeButtonhanler}
 					color={isHovered ? "red" : "black"}

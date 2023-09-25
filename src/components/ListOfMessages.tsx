@@ -5,11 +5,11 @@ import Message from "./Message";
 const ListOfMessages = () => {
 	const ListOfMessages = useAppSelector(selectListOfMessages);
 	return (
-		<ul>
+		<ol>
 			{ListOfMessages.map((message) => (
 				<Message key={message.id} dataOfMessage={message} />
 			))}
-		</ul>
+		</ol>
 	);
 };
 

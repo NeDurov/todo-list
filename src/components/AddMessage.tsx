@@ -1,6 +1,7 @@
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState, useEffect } from "react";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { add } from "../features/messages/messagesSlice";
+import { toast } from "react-toastify";
 
 const AddMessage = () => {
 	const dispatch = useAppDispatch();
@@ -15,7 +16,7 @@ const AddMessage = () => {
 		} = e;
 		setTextOfMessage(value);
 		if (value.trim() === "") {
-			setTextError("Text is required");
+			setTextError("Поле не должно быть пустым");
 		} else {
 			setTextError("");
 		}
@@ -27,7 +28,7 @@ const AddMessage = () => {
 		} = e;
 		setTimeOfMessage(value);
 		if (value === "" || Number(value) <= 0) {
-			setTimeError("Time must be a positive number");
+			setTimeError("Введите положительное число");
 		} else {
 			setTimeError("");
 		}
@@ -42,6 +43,31 @@ const AddMessage = () => {
 		dispatch(add({ text: textOfMessage, interval: Number(timeOfMessage) }));
 		clearInputs();
 	};
+
+	const sendToastError = (error: string) => {
+		toast.error(error, {
+			position: "bottom-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "dark",
+		});
+	};
+
+	useEffect(() => {
+		if (textError) {
+			sendToastError(textError);
+		}
+	}, [textError]);
+
+	useEffect(() => {
+		if (timeError) {
+			sendToastError(timeError);
+		}
+	}, [timeError]);
 
 	return (
 		<div
@@ -59,7 +85,6 @@ const AddMessage = () => {
 				onChange={textOfMessageHandler}
 				type="text"
 			/>
-			{textError && <p style={{ color: "red" }}>{textError}</p>}
 			<input
 				placeholder="Задержка в секундах"
 				style={{
@@ -71,7 +96,6 @@ const AddMessage = () => {
 				type="number"
 				min={0}
 			/>
-			{timeError && <p style={{ color: "red" }}>{timeError}</p>}
 			<button
 				style={{ marginLeft: "10px" }}
 				disabled={Boolean(

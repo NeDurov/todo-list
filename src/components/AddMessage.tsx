@@ -53,6 +53,7 @@ const AddMessage = () => {
 			}}
 		>
 			<input
+				placeholder="Текст сообщения"
 				style={{ borderColor: textError ? "red" : "gray" }}
 				value={textOfMessage}
 				onChange={textOfMessageHandler}
@@ -60,6 +61,7 @@ const AddMessage = () => {
 			/>
 			{textError && <p style={{ color: "red" }}>{textError}</p>}
 			<input
+				placeholder="Задержка в секундах"
 				style={{
 					marginLeft: "10px",
 					borderColor: timeError ? "red" : "gray",
